@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dredge Fish &amp; Aberration Reference</title>
+<style>
+  :root{
+    --bg:#10161c;
+    --panel:#161d25;
+    --panel-2:#1b232c;
+    --border:#2a333d;
+    --text:#dde3ea;
+    --text-dim:#8893a0;
+    --accent:#3f8f8a;
+    --exotic:#b58a3c;
+    --day:#c2a23c;
+    --night:#4878a8;
+    --both:#6f9a5f;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.45;
+  }
+  header{
+    padding:20px 24px 16px;
+    border-bottom:1px solid var(--border);
+  }
+  header h1{
+    margin:0 0 6px;
+    font-size:21px;
+  }
+  header p{
+    margin:0 0 4px;
+    color:var(--text-dim);
+    font-size:14px;
+    max-width:860px;
+  }
+  nav.tabs{
+    display:flex;
+    gap:8px;
+    padding:14px 24px 0;
+    border-bottom:1px solid var(--border);
+    background:var(--panel);
+    flex-wrap:wrap;
+  }
+  nav.tabs .tab{
+    padding:10px 16px;
+    font-size:13.5px;
+    color:var(--text-dim);
+    cursor:pointer;
+    border-bottom:2px solid transparent;
+    user-select:none;
+  }
+  nav.tabs .tab.active{
+    color:var(--text);
+    border-bottom-color:var(--accent);
+  }
+  section{ display:none; }
+  section.active{ display:block; }
+  .controls{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    padding:16px 24px;
+    border-bottom:1px solid var(--border);
+    background:var(--panel);
+    align-items:center;
+  }
+  input[type="search"], input[type="number"]{
+    background:var(--panel-2);
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:8px 10px;
+    border-radius:6px;
+    font-size:14px;
+  }
+  input[type="search"]{
+    flex:1;
+    min-width:200px;
+  }
+  select{
+    background:var(--panel-2);
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:8px 10px;
+    border-radius:6px;
+    font-size:14px;
+  }
+  .table-wrap{
+    padding:16px 24px 50px;
+    overflow-x:auto;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.5px;
+  }
+  th, td{
+    text-align:left;
+    padding:8px 10px;
+    border-bottom:1px solid var(--border);
+    vertical-align:top;
+  }
+  th{
+    color:var(--text-dim);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    position:sticky;
+    top:0;
+    background:var(--bg);
+    cursor:pointer;
+    user-select:none;
+  }
+  th.sortable:hover{ color:var(--text); }
+  th .arrow{ font-size:10px; opacity:0.6; }
+  tbody tr:hover{
+    background:var(--panel);
+  }
+  .badge{
+    display:inline-block;
+    font-size:11px;
+    padding:2px 7px;
+    border-radius:4px;
+    border:1px solid currentColor;
+    white-space:nowrap;
+  }
+  .badge.Day{ color:var(--day); }
+  .badge.Night{ color:var(--night); }
+  .badge.Day-Night{ color:var(--both); }
+  .badge.exotic{ color:var(--exotic); }
+  .badge.unknown{ color:var(--text-dim); }
+  .src-link{
+    color:var(--text-dim);
+    font-size:11px;
+  }
+  .src-link a{ color:var(--text-dim); }
+  .cell-note{
+    font-size:11.5px;
+    color:var(--text-dim);
+    margin-top:4px;
+  }
+  .row-note{
+    font-size:11px;
+    color:var(--exotic);
+    margin-top:4px;
+    max-width:360px;
+  }
+  .snapshot-note{
+    font-size:12px;
+    color:var(--text-dim);
+    border-left:3px solid var(--border);
+    padding-left:10px;
+    margin:10px 24px;
+    max-width:860px;
+  }
+  .snapshot-note.warn{
+    border-left-color:var(--accent);
+  }
+  footer.sources{
+    padding:16px 24px 60px;
+    border-top:1px solid var(--border);
+    font-size:12px;
+    color:var(--text-dim);
+  }
+  footer.sources a{ color:var(--text-dim); }
+  footer.sources li{ margin-bottom:6px; }
+  .not-published{ color:var(--text-dim); font-style:italic; }
+  .haul-table input[type="number"]{
+    width:70px;
+  }
+  .haul-total{
+    padding:14px 24px;
+    background:var(--panel-2);
+    border-bottom:1px solid var(--border);
+    font-size:15px;
+  }
+  .haul-total b{ color:var(--accent); }
+  .top-seller{ color:var(--accent); font-weight:600; }
+  .fan-ref-note{
+    font-size:12px;
+    color:var(--text-dim);
+    padding:10px 24px 0;
+  }
+  .aber-link{
+    color:var(--both);
+    cursor:pointer;
+    text-decoration:underline dotted;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Dredge Fish &amp; Aberration Reference</h1>
+  <p>Unofficial fan reference, not affiliated with or endorsed by Black Salt Games or Team17. Mid-run with a full cargo hold and trying to decide what to keep for the collector or sell to the fish merchant? Look up a fish's sell price, tool, region, zone, time of day and which aberration it mutates into, or plug your haul into the calculator below.</p>
+</header>
+
+<div class="snapshot-note warn" id="site-note"></div>
+
+<nav class="tabs">
+  <div class="tab active" data-section="fish">Fish (<span id="fish-count"></span>)</div>
+  <div class="tab" data-section="aberrations">Aberrations (<span id="aber-count"></span>)</div>
+  <div class="tab" data-section="haul">Cargo-Haul Calculator</div>
+</nav>
+
+<section id="fish" class="active">
+  <div class="controls">
+    <input type="search" id="fish-search" placeholder="Search fish, region, zone, tool..." />
+    <select id="fish-region"></select>
+    <select id="fish-time"></select>
+    <select id="fish-tool"></select>
+  </div>
+  <div class="table-wrap">
+    <table id="fish-table">
+      <thead>
+        <tr>
+          <th class="sortable" data-sort="name">Fish</th>
+          <th class="sortable" data-sort="region">Region / Zone</th>
+          <th class="sortable" data-sort="time">Time of Day</th>
+          <th class="sortable" data-sort="tool">Tool</th>
+          <th class="sortable" data-sort="sellPrice">Sell Price</th>
+          <th>Aberrations</th>
+        </tr>
+      </thead>
+      <tbody id="fish-rows"></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="aberrations">
+  <div class="fan-ref-note">Each aberration mutates from a specific base fish, listed here with its own sell price, time of day and tool. Click a base-fish name to jump back to the fish tab and search for it.</div>
+  <div class="controls">
+    <input type="search" id="aber-search" placeholder="Search aberrations, base fish, region..." />
+    <select id="aber-region"></select>
+    <select id="aber-time"></select>
+  </div>
+  <div class="table-wrap">
+    <table id="aber-table">
+      <thead>
+        <tr>
+          <th class="sortable" data-sort="name">Aberration</th>
+          <th class="sortable" data-sort="baseFish">Base Fish</th>
+          <th class="sortable" data-sort="region">Region / Zone</th>
+          <th class="sortable" data-sort="time">Time of Day</th>
+          <th class="sortable" data-sort="tool">Tool</th>
+          <th class="sortable" data-sort="sellPrice">Sell Price</th>
+        </tr>
+      </thead>
+      <tbody id="aber-rows"></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="haul">
+  <div class="fan-ref-note">Enter how many of each fish or aberration are in your cargo grid. The total updates live, and the three highest-value rows in your haul are highlighted. Sell price here is the source's AVERAGE/base rate -- your actual payout depends on the size of each individual catch.</div>
+  <div class="haul-total" id="haul-total">Total: $0.00</div>
+  <div class="table-wrap">
+    <table class="haul-table">
+      <thead>
+        <tr>
+          <th>Catch</th>
+          <th>Type</th>
+          <th>Sell Price (each, average)</th>
+          <th>Count</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody id="haul-rows"></tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="sources">
+  Sources &amp; caveats:
+  <ul>
+    <li>Fish and aberration tables (67 base fish across The Marrows, Gale Cliffs, Stellar Basin, Twisted Strand, Devil's Spine, Open Ocean and the Exotic category, plus 61 aberrations) -- <a href="https://gameplay.tips/guides/dredge-encyclopedia-guide.html" target="_blank" rel="noopener">Gameplay Tips, DREDGE Encyclopedia Guide, published 2023-04-04, fetched 2026-11-16</a>.</li>
+  </ul>
+  <div style="margin-top:8px;">This source predates DREDGE's paid expansions. DLC fish from the Pale Reach and Iron Rig content are <strong>not covered</strong> on this page -- no second reachable source with real, published values for those fish was found. dredge.wiki.gg and dredge.fandom.com both returned 403 Forbidden when fetched directly.</div>
+  <div style="margin-top:8px;">Sell price shown is the source's AVERAGE/base rate for that fish. The source itself states the actual sale value varies with the size (quality) of the individual catch -- treat every price here as a baseline, not a guarantee of what you'll get at the merchant.</div>
+  <div style="margin-top:8px;">A handful of rows in the source had internal typos (a duplicated or truncated base-fish name). Those rows carry a note explaining exactly what the source said and how it was resolved; nothing was invented to fill a gap -- any value the source does not publish is shown as "not published".</div>
+  <div style="margin-top:8px;">This is an unofficial fan reference. It is not affiliated with, endorsed by, or certified by Black Salt Games, Team17, or the makers of DREDGE. Prices reflect the source snapshot above and may differ from your current game version.</div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+  document.getElementById("fish-count").textContent = FISH.length;
+  document.getElementById("aber-count").textContent = ABERRATIONS.length;
+
+  function timeClass(t) {
+    if (t === "not published") return "unknown";
+    return t.replace(/\//g, "-");
+  }
+
+  function fmtPrice(row) {
+    if (row.sellPrice === null) {
+      return '<span class="not-published">not published</span>';
+    }
+    return "$" + row.sellPrice.toFixed(2);
+  }
+
+  function populateSelect(el, values, allLabel) {
+    el.innerHTML = "";
+    const optAll = document.createElement("option");
+    optAll.value = "All";
+    optAll.textContent = allLabel;
+    el.appendChild(optAll);
+    for (const v of values) {
+      const opt = document.createElement("option");
+      opt.value = v;
+      opt.textContent = v;
+      el.appendChild(opt);
+    }
+  }
+
+  function uniqueSorted(list, key) {
+    return Array.from(new Set(list.map(r => r[key]))).sort();
+  }
+
+  // ---- Fish tab ----
+  const fishSearchEl = document.getElementById("fish-search");
+  const fishRegionEl = document.getElementById("fish-region");
+  const fishTimeEl = document.getElementById("fish-time");
+  const fishToolEl = document.getElementById("fish-tool");
+  const fishRowsEl = document.getElementById("fish-rows");
+  let fishSortKey = "name", fishSortDir = 1;
+
+  populateSelect(fishRegionEl, uniqueSorted(FISH, "region"), "All Regions");
+  populateSelect(fishTimeEl, uniqueSorted(FISH, "time"), "All Times");
+  populateSelect(fishToolEl, uniqueSorted(FISH, "tool"), "All Tools");
+
+  function fishSortValue(row, key) {
+    if (key === "sellPrice") return row.sellPrice === null ? -1 : row.sellPrice;
+    if (key === "region") return row.region + " " + row.zone;
+    return row[key];
+  }
+
+  function matchesFishSearch(row, q) {
+    if (!q) return true;
+    q = q.toLowerCase();
+    return row.name.toLowerCase().includes(q) ||
+      row.region.toLowerCase().includes(q) ||
+      row.zone.toLowerCase().includes(q) ||
+      row.tool.toLowerCase().includes(q) ||
+      row.aberrations.join(" ").toLowerCase().includes(q);
+  }
+
+  function renderFish() {
+    const q = fishSearchEl.value.trim();
+    const region = fishRegionEl.value;
+    const time = fishTimeEl.value;
+    const tool = fishToolEl.value;
+    let filtered = FISH.filter(row =>
+      (region === "All" || row.region === region) &&
+      (time === "All" || row.time === time) &&
+      (tool === "All" || row.tool === tool) &&
+      matchesFishSearch(row, q)
+    );
+    filtered = filtered.slice().sort((a, b) => {
+      const av = fishSortValue(a, fishSortKey);
+      const bv = fishSortValue(b, fishSortKey);
+      if (typeof av === "number" && typeof bv === "number") return (av - bv) * fishSortDir;
+      return String(av).localeCompare(String(bv)) * fishSortDir;
+    });
+    fishRowsEl.innerHTML = "";
+    for (const row of filtered) {
+      const tr = document.createElement("tr");
+      const exoticBadge = row.exotic ? '<span class="badge exotic">Exotic</span> ' : "";
+      const aberList = row.aberrations.length
+        ? row.aberrations.join(", ")
+        : '<span class="not-published">none published</span>';
+      const missionNote = row.mission ? `<div class="cell-note">Mission: ${row.mission}</div>` : "";
+      const spotNote = row.spot ? `<div class="cell-note">Spot: ${row.spot}</div>` : "";
+      tr.innerHTML = `
+        <td>${exoticBadge}${row.name}${missionNote}${spotNote}</td>
+        <td>${row.region}, ${row.zone}</td>
+        <td><span class="badge ${timeClass(row.time)}">${row.time}</span></td>
+        <td>${row.tool}</td>
+        <td>${fmtPrice(row)}<div class="cell-note">src: Gameplay Tips</div></td>
+        <td>${aberList}</td>
+      `;
+      fishRowsEl.appendChild(tr);
+    }
+  }
+
+  fishSearchEl.addEventListener("input", renderFish);
+  fishRegionEl.addEventListener("change", renderFish);
+  fishTimeEl.addEventListener("change", renderFish);
+  fishToolEl.addEventListener("change", renderFish);
+
+  document.querySelectorAll("#fish-table th.sortable").forEach(th => {
+    th.addEventListener("click", () => {
+      const key = th.dataset.sort;
+      if (fishSortKey === key) { fishSortDir = -fishSortDir; } else { fishSortKey = key; fishSortDir = 1; }
+      document.querySelectorAll("#fish-table th.sortable .arrow").forEach(a => a.remove());
+      const arrow = document.createElement("span");
+      arrow.className = "arrow";
+      arrow.textContent = fishSortDir === 1 ? "up" : "down";
+      th.appendChild(arrow);
+      renderFish();
+    });
+  });
+
+  // ---- Aberrations tab ----
+  const aberSearchEl = document.getElementById("aber-search");
+  const aberRegionEl = document.getElementById("aber-region");
+  const aberTimeEl = document.getElementById("aber-time");
+  const aberRowsEl = document.getElementById("aber-rows");
+  let aberSortKey = "name", aberSortDir = 1;
+
+  populateSelect(aberRegionEl, uniqueSorted(ABERRATIONS, "region"), "All Regions");
+  populateSelect(aberTimeEl, uniqueSorted(ABERRATIONS, "time"), "All Times");
+
+  function aberSortValue(row, key) {
+    if (key === "sellPrice") return row.sellPrice === null ? -1 : row.sellPrice;
+    if (key === "region") return row.region + " " + row.zone;
+    return row[key];
+  }
+
+  function matchesAberSearch(row, q) {
+    if (!q) return true;
+    q = q.toLowerCase();
+    return row.name.toLowerCase().includes(q) ||
+      row.baseFish.toLowerCase().includes(q) ||
+      row.region.toLowerCase().includes(q) ||
+      row.zone.toLowerCase().includes(q);
+  }
+
+  function renderAberrations() {
+    const q = aberSearchEl.value.trim();
+    const region = aberRegionEl.value;
+    const time = aberTimeEl.value;
+    let filtered = ABERRATIONS.filter(row =>
+      (region === "All" || row.region === region) &&
+      (time === "All" || row.time === time) &&
+      matchesAberSearch(row, q)
+    );
+    filtered = filtered.slice().sort((a, b) => {
+      const av = aberSortValue(a, aberSortKey);
+      const bv = aberSortValue(b, aberSortKey);
+      if (typeof av === "number" && typeof bv === "number") return (av - bv) * aberSortDir;
+      return String(av).localeCompare(String(bv)) * aberSortDir;
+    });
+    aberRowsEl.innerHTML = "";
+    for (const row of filtered) {
+      const tr = document.createElement("tr");
+      const noteHtml = row.note ? `<div class="row-note">Source note: ${row.note}</div>` : "";
+      tr.innerHTML = `
+        <td>${row.name}${noteHtml}</td>
+        <td><span class="aber-link" data-jump="${row.baseFish.replace(/"/g, "&quot;")}">${row.baseFish}</span></td>
+        <td>${row.region}, ${row.zone}</td>
+        <td><span class="badge ${timeClass(row.time)}">${row.time}</span></td>
+        <td>${row.tool}</td>
+        <td>${fmtPrice(row)}<div class="cell-note">src: Gameplay Tips</div></td>
+      `;
+      aberRowsEl.appendChild(tr);
+    }
+  }
+
+  aberSearchEl.addEventListener("input", renderAberrations);
+  aberRegionEl.addEventListener("change", renderAberrations);
+  aberTimeEl.addEventListener("change", renderAberrations);
+
+  aberRowsEl.addEventListener("click", e => {
+    const link = e.target.closest(".aber-link");
+    if (!link) return;
+    const name = link.dataset.jump;
+    tabs.forEach(t => t.classList.remove("active"));
+    document.querySelector('.tab[data-section="fish"]').classList.add("active");
+    document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+    document.getElementById("fish").classList.add("active");
+    fishSearchEl.value = name;
+    renderFish();
+  });
+
+  document.querySelectorAll("#aber-table th.sortable").forEach(th => {
+    th.addEventListener("click", () => {
+      const key = th.dataset.sort;
+      if (aberSortKey === key) { aberSortDir = -aberSortDir; } else { aberSortKey = key; aberSortDir = 1; }
+      document.querySelectorAll("#aber-table th.sortable .arrow").forEach(a => a.remove());
+      const arrow = document.createElement("span");
+      arrow.className = "arrow";
+      arrow.textContent = aberSortDir === 1 ? "up" : "down";
+      th.appendChild(arrow);
+      renderAberrations();
+    });
+  });
+
+  // ---- Haul calculator ----
+  const haulRowsEl = document.getElementById("haul-rows");
+  const haulTotalEl = document.getElementById("haul-total");
+  const ALL_CATCHES = [
+    ...FISH.filter(f => f.sellPrice !== null).map(f => ({ name: f.name, sellPrice: f.sellPrice, kind: "Fish" })),
+    ...ABERRATIONS.filter(a => a.sellPrice !== null).map(a => ({ name: a.name, sellPrice: a.sellPrice, kind: "Aberration" })),
+  ].sort((a, b) => b.sellPrice - a.sellPrice);
+
+  const counts = {};
+
+  function renderHaul() {
+    haulRowsEl.innerHTML = "";
+    let total = 0;
+    const subtotals = ALL_CATCHES.map(c => {
+      const count = counts[c.name + "|" + c.kind] || 0;
+      const subtotal = count * c.sellPrice;
+      total += subtotal;
+      return { c, count, subtotal };
+    });
+    const topThreshold = subtotals
+      .map(s => s.subtotal)
+      .filter(v => v > 0)
+      .sort((a, b) => b - a)[2] || Infinity;
+
+    for (const { c, count, subtotal } of subtotals) {
+      const tr = document.createElement("tr");
+      const isTop = subtotal > 0 && subtotal >= topThreshold;
+      const key = c.name + "|" + c.kind;
+      tr.innerHTML = `
+        <td class="${isTop ? "top-seller" : ""}">${c.name}</td>
+        <td>${c.kind}</td>
+        <td>$${c.sellPrice.toFixed(2)}</td>
+        <td><input type="number" min="0" step="1" value="${count}" data-key="${key.replace(/"/g, "&quot;")}" /></td>
+        <td class="${isTop ? "top-seller" : ""}">$${subtotal.toFixed(2)}</td>
+      `;
+      haulRowsEl.appendChild(tr);
+    }
+    haulTotalEl.innerHTML = `Total: <b>$${total.toFixed(2)}</b> across ${subtotals.filter(s => s.count > 0).length} catch type(s)`;
+  }
+
+  haulRowsEl.addEventListener("input", e => {
+    const input = e.target;
+    if (input.dataset.key) {
+      const v = parseInt(input.value, 10);
+      counts[input.dataset.key] = isNaN(v) || v < 0 ? 0 : v;
+      renderHaul();
+      const refocus = haulRowsEl.querySelector(`input[data-key="${CSS.escape(input.dataset.key)}"]`);
+      if (refocus) { refocus.focus(); refocus.select(); }
+    }
+  });
+
+  document.getElementById("site-note").textContent =
+    "Snapshot fetched 2026-11-16 from Gameplay Tips (gameplay.tips/guides/dredge-encyclopedia-guide.html, published 2023-04-04). Base-game fish only -- DLC fish are not covered. Sell prices are the source's average/base rate; actual sale value varies with the size of the catch.";
+
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+      document.getElementById(tab.dataset.section).classList.add("active");
+    });
+  });
+
+  renderFish();
+  renderAberrations();
+  renderHaul();
+</script>
+
+</body>
+</html>
